@@ -8,7 +8,7 @@ phases:
     commands:
       - echo Build started ${BUILD_ENV}
       - npm install
-      - ng build --configuration=${BUILD_ENV}
+      - ng build --prod --configuration=production
   post_build:
     commands:
       - aws s3 cp dist s3://${S3_BUCKET} --recursive
