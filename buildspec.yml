@@ -6,12 +6,14 @@ phases:
       - npm install -g @angular/cli
   build:
     commands:
-      - echo Build started
+      - echo Build started ${BUILD_ENV}
+      - npm install
       - ng build --prod --configuration=${BUILD_ENV}
   post_build:
     commands:
       - aws s3 cp dist s3://${S3_BUCKET} --recursive
-      - echo Build completed
+      - aws configure set preview.cloudfront true
+      - echo Build completed ${S3_BUCKET}
 artifacts:
   files:
     - '**/*'
